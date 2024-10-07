@@ -63,10 +63,10 @@
                 $('#medicationRows').append(`
                             <tr>
                                 <td>
-                                    <select name="scriptLines[${$('#medicationRows').children().length}].MedicationID" class="form-control">
+                                    <select name="scriptLines[${$('#medicationRows').children().length}].PharmacyID" class="form-control">
         @foreach (var medication in ViewBag.Medications)
         {
-                                                <option value="@medication.MedicationID">@medication.MedicationName</option>
+                                                <option value="@medication.PharmacyID">@medication.Name</option>
         }
                                     </select>
                                 </td>

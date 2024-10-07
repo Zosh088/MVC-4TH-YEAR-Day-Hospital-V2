@@ -489,7 +489,7 @@ namespace Surgeon__Day_Hospital_.Controllers
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "Medications added successfully!";
-                return RedirectToAction("ViewPrescriptions", new
+                return RedirectToAction("ViewAllScriptRecords", new
                 {
                     patientId = _context.Script_Records
                     .Where(x => x.ScriptID == scriptId)
@@ -555,7 +555,7 @@ namespace Surgeon__Day_Hospital_.Controllers
 
             // If prescriptions exist, display the list ordered by date
             ViewBag.ExistingPrescriptions = existingPrescription;
-            return View("ViewAllScriptRecords", existingPrescription); // assuming you have a view to show existing prescriptions
+            return View("ViewAllScriptRecords", existingPrescription);
         }
 
 
@@ -574,7 +574,7 @@ namespace Surgeon__Day_Hospital_.Controllers
             {
                 // Redirect to the medicine addition if prescription already exists
                 TempData["InfoMessage"] = "Existing prescription found. Redirecting to add medications.";
-                return RedirectToAction("AddMedicine", new { scriptId = existingPrescription.ScriptID });
+                return RedirectToAction("ViewScriptLines", new { scriptId = existingPrescription.ScriptID });
             }
 
             // If the model is valid and no existing prescription is found
@@ -605,7 +605,7 @@ namespace Surgeon__Day_Hospital_.Controllers
 
 
         // Now lets Display all Scripts to the Surgeons. ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        public IActionResult ViewAllScriptRecords(int patientId)
+        public IActionResult ViewAllScriptRecords(string patientId)
         {
             // Fetch prescriptions for the patient, including related Patient entity, ordered by date issued (most recent first)
             var prescriptions = _context.Script_Records
@@ -620,6 +620,8 @@ namespace Surgeon__Day_Hospital_.Controllers
                 return RedirectToAction("AddPrescription", new { Id = patientId });
             }
 
+            ViewBag.Patient = _context.Patient_Records
+                .Where(p => p.Patient_ID_no == patientId.ToString());
             // Pass the prescription records to the view
             ViewBag.PatientID = patientId;
             return View(prescriptions);

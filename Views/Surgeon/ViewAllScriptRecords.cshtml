@@ -20,7 +20,7 @@
 
     @if (Model != null && Model.Any())
     {
-        <h1>Existing Prescriptions for @Model.FirstOrDefault().Patient.Patient_Name</h1>
+        <h2>Existing Prescriptions for: @Model.FirstOrDefault()?.Patient_ID_no</h2>
 
         <table class="table">
             <thead>
@@ -41,7 +41,7 @@
                         <td>@prescription.Urgent</td>
                         <td>@prescription.Status</td>
                         <td>
-                            <a href="@Url.Action("AddMedicine", new { scriptId = prescription.ScriptID })" class="btn btn-primary">Add/View Medications</a>
+                            <a href="@Url.Action("AddMedicine", new { scriptId = prescription.ScriptID })" class="btn btn-primary">Add / View Medications</a>
                         </td>
                     </tr>
                 }
