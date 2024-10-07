@@ -1,0 +1,46 @@
+﻿
+
+
+@{
+    ViewData["Title"] = "Discharge";
+    Layout = "NurseLayout";
+}
+@model Discharge_Records
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discharge Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Discharge Form</h2>
+        <form method="post" asp-action="Discharge">
+            <!-- Date & Time Field -->
+            <div class="mb-3">
+                <label for="dateTime" class="form-label">Date & Time</label>
+                <input type="datetime-local" class="form-control" asp-for="DischargeDate" required>
+            </div>
+
+            <input asp-for="NurseID" hidden readonly style="display:none"/>
+            <input asp-for="Patient_ID_no" hidden readonly style="display:none" />
+            <input asp-for="Book" hidden readonly style="display:none" />
+
+            <!-- Additional Comments Field -->
+            <div class="mb-3">
+                <label for="comments" class="form-label">Additional Comments</label>
+                <textarea class="form-control" asp-for="Notes" rows="4" placeholder="Enter any additional comments"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,34 @@
+﻿@using Surgeon__Day_Hospital_;
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Admin_Layout";
+}
+
+<head>
+    <title>Editorial by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+
+<section id="banner">
+    <div class="content">
+        <header>
+            <h1>
+                Welcome @User.Identity?.Name!<br />
+
+            </h1>
+            <p>Connect Health, Bridging Lives.</p>
+        </header>
+        <p>Our purpose is making life better. We’re able to fulfill our purpose – and work towards our vision – because we’re backed by four strategic pillars (growth, efficiency, quality, sustainability), a sustainable business model, and a powerful mission.</p>
+        <ul class="actions">
+            <li><a href="#" class="button big">Learn More</a></li>
+        </ul>
+    </div>
+    <span class="image object">
+        <img src="~/images/Custom EMR and EHR Software Development.png" alt="" />
+    </span>
+</section>
+

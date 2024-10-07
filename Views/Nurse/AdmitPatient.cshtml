@@ -1,0 +1,508 @@
+﻿
+
+@{
+    ViewData["Title"] = "Ward Booking";
+    Layout = "NurseLayout";
+}
+
+<h2>Ward Booking Form for @Model.Patient_Records.Patient_Name</h2>
+@model Surgeon__Day_Hospital_.DapperLibrary.ViewModels.AdmitPatVM
+<style>
+    .medication-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        margin: 20px;
+    }
+
+    .medication-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .select1 {
+        width: 200px;
+        height: 150px;
+    }
+
+    button {
+        margin-top: 10px;
+        width: 100px;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .box {
+        margin: 0 20px;
+        width: 200px;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    
+</style>
+<form asp-action="AdmitPatient" method="post">
+    <div id="p-1">
+        <div class="form-group">
+            <label for="admission-date">Date & Time of Admission:</label>
+            <input type="datetime-local" asp-for="AdmitDate" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="ward">Ward Available:</label>
+            <select asp-for="Beds.BedID" class="form-select" asp-items="ViewBag.Beds">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="patient-name">Patient Name:</label>
+            <input type="text" asp-for="@Model.Patient_Records.Patient_Name" value="@Model.Patient_Records.Patient_Name @Model.Patient_Records.Patient_Surname">
+        </div>
+        <div class="form-group">
+            <label for="patient-name">Patient Surname:</label>
+            <input type="text" asp-for="@Model.Patient_Records.Patient_Surname" value="@Model.Patient_Records.Patient_Surname">
+        </div>
+
+        <div class="form-group">
+            <label for="surgeon">Surgeon:</label>
+            <input type="text" id="surgeon" name="surgeon" value=" @Model.Surgeon.Name @Model.Surgeon.Surname" readonly>
+        </div>
+        <div class="form-group">
+            <label for="patient-id">Patient ID:</label>
+            <input type="text" asp-for="Patient_Records.Patient_ID_no" value="@Model.Patient_Records.Patient_ID_no" readonly>
+        </div>
+        <button type="button" onclick="Next1()">Next</button>
+    </div>
+    <div id="p-2" style="display:none">
+        <div class="mb-3">
+            <label for="patient-phone" class="form-label">Patient Phone:</label>
+            <input type="tel" asp-for="Patient_Records.Patient_Phone" class="form-control" placeholder="Enter phone number">
+            <input asp-for="BookId" value="@Model.BookId" hidden>
+        </div>
+        <div class="mb-3">
+            <label for="patient-Email" class="form-label">Email Address:</label>
+            <input type="email" asp-for="Patient_Records.Email" class="form-control" placeholder="eg: myname@example.com" />
+        </div>
+        <div class="mb-3">
+            <label for="patient-Email" class="form-label">Gender:</label>
+            <input type="text" asp-for="Patient_Records.Patient_Gender" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="dob" class="form-label">Date of Birth:</label>
+            <input type="text" asp-for="Patient_Records.Patient_DOB" class="form-control" placeholder="DD/MM/YYYY" required>
+
+        </div>
+        <div class="mb-3">
+            <label for="address-line-1" class="form-label">Patient Address:</label>
+            <input type="text" asp-for="Patient_Records.AddressLine1" class="form-control" placeholder="Address line 1">
+        </div>
+        <div class="mb-3">
+            <label for="address-line-1" class="form-label">Patient Address:</label>
+            <input type="text" asp-for="Patient_Records.AddressLine2" class="form-control" placeholder="Address line 2"/>
+        </div>
+
+        <input value="@Model.Patient_Records.Patient_ID_no" asp-for="Patient_Records.Patient_ID_no" hidden />
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="province" class="form-label">Province:</label>
+                <select id="province" class="form-select" asp-items="ViewBag.Provinces">
+                    
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="city" class="form-label">City:</label>
+                <select id="city" class="form-select">
+                    
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="suburb" class="form-label">Suburb:</label>
+                <select id="suburb" asp-for="Patient_Records.SuburbID" class="form-select">
+                   
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" onclick="Prev1()">Previous</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" onclick="Next2()">Next</button>
+            </div>
+
+        </div>
+    </div>
+    <div id="p-3" style="display:none">
+        <div class="medication-container">
+            <!-- Current Medications -->
+            <div class="medication-box">
+                <label for="currentMedications">Current Medications</label>
+                <select id="currentMedications" class="select1" multiple asp-items="ViewBag.Meds">
+                    
+                </select>
+                <button id="addButton" type="button" onclick="addMedication()">Add &gt;&gt;</button>
+            </div>
+
+            <!-- Selected Medications -->
+            <div class="medication-box">
+                <label for="selectedMedications">Selected Medications</label>
+                <select id="selectedMedications" class="select1" asp-for="Meds" multiple>
+                    <!-- Medications will be added here -->
+                </select>
+                
+                <button id="removeButton" type="button" onclick="removeMedication()">&lt;&lt; Remove</button>
+            </div>
+        </div>
+
+
+        <div class="medication-container">
+            <!-- Current Medications -->
+            <div class="medication-box">
+                <label for="currentMedications1">Allergies</label>
+                <select id="currentMedications1" class="select1" multiple="multiple" asp-items="ViewBag.Allergy">
+                    
+                </select>
+                <button id="addButton" type="button" onclick="addMedication1()">Add &gt;&gt;</button>
+            </div>
+
+            <!-- Selected Medications -->
+            <div class="medication-box">
+                <label for="selectedMedications1">Selected Allergies</label>
+                <select id="selectedMedications1" asp-for="Allergies" class="select1" multiple="multiple">
+                    <!-- Medications will be added here -->
+                </select>
+                <button id="removeButton" type="button" onclick="removeMedication1()">&lt;&lt; Remove</button>
+            </div>
+        </div>
+        <div class="medication-container">
+            <!-- Current Medications -->
+            <div class="medication-box">
+                <label for="currentMedications2">ContraIndication</label>
+                <select id="currentMedications2" multiple="multiple" asp-items="ViewBag.Contra" class="select1">
+                    
+                </select>
+                <button id="addButton" type="button" onclick="addMedication2()">Add &gt;&gt;</button>
+            </div>
+
+            <!-- Selected Medications -->
+            <div class="medication-box">
+                <label for="selectedMedications2">Selected ContraIndications</label>
+                <select id="selectedMedications2" asp-for="Contra" multiple="multiple" class="select1">
+                    <!-- Medications will be added here -->
+                </select>
+                <button id="removeButton" type="button" onclick="removeMedication2()">&lt;&lt; Remove</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" onclick="Prev2()">Previous</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" onclick="Next3()" >Next</button>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="p-4" style="display:none">
+        <h4 class="text-center">Vitals</h4>
+        <br />
+        <table>
+                @if(Model.Vital_Types != null && Model.Vital_Types.Any())
+                {
+                    foreach (var item in Model.Vital_Types)
+                    {
+                        <tr>
+                        <td>@item.Name</td>
+                        <td><input type="number" id="v-@item.VitalTypeID" class="form-control" placeholder="@item.Name" /></td>
+                        @{
+                            if (item.Name2 != null)
+                            {
+                                string x = "hidden";
+                                <td><input type="number" id="vv-@item.VitalTypeID" value="0" class="form-control" placeholder="@item.Name2" @x /></td>
+
+                            }
+                        }
+                        <td><button class="btn btn-primary" type="button" onclick="AddVital(@item.VitalTypeID)">Submit</button></td>
+                        </tr>
+
+                    }
+                }
+        </table>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" onclick="Prev3()">Previous</button>
+    </div>
+            <div class="col-md-3">
+                <button type="submit">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script>
+        function AddVital(id) {
+            data = { pat: '@Model.Patient_Records.Patient_ID_no', id: id, value: $('#v-' + id).val(), value2: $('#vv-' + id).val() }
+            $.ajax({
+                type: "GET",
+                data: data,
+                url: "@Url.Action("AddVital")",
+                dataType: "Json",
+                contentType: "application/json",
+                success: function (result) {
+
+                }
+            });
+        }
+        function addMedication() {
+            const currentMedications = document.getElementById('currentMedications');
+            const selectedMedications = document.getElementById('selectedMedications');
+
+            Array.from(currentMedications.selectedOptions).forEach(option => {
+                data = { pat: '@Model.Patient_Records.Patient_ID_no', id: option.value }
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "@Url.Action("AddPatMeds")",
+                    dataType: "Json",
+                    contentType: "application/json",
+                    success: function (result) {
+                        
+                    }
+                });
+                selectedMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+        }
+
+        function removeMedication() {
+            const currentMedications = document.getElementById('currentMedications');
+            const selectedMedications = document.getElementById('selectedMedications');
+
+            Array.from(selectedMedications.selectedOptions).forEach(option => {
+                data = { pat: '@Model.Patient_Records.Patient_ID_no', id: option.value }
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "@Url.Action("DelPatMeds")",
+                    dataType: "Json",
+                    contentType: "application/json",
+                    success: function (result) {
+
+                    }
+                });
+                currentMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+
+        }
+        function addMedication1() {
+            const currentMedications = document.getElementById('currentMedications1');
+            const selectedMedications = document.getElementById('selectedMedications1');
+
+            Array.from(currentMedications.selectedOptions).forEach(option => {
+                data = { pat: '@Model.Patient_Records.Patient_ID_no', id: option.value }
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "@Url.Action("AddPatAll")",
+                    dataType: "Json",
+                    contentType: "application/json",
+                    success: function (result) {
+
+                    }
+                });
+                selectedMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+        }
+
+        function removeMedication1() {
+            const currentMedications = document.getElementById('currentMedications1');
+            const selectedMedications = document.getElementById('selectedMedications1');
+
+            Array.from(selectedMedications.selectedOptions).forEach(option => {
+                data = { pat: '@Model.Patient_Records.Patient_ID_no', id: option.value }
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "@Url.Action("DelPatAll")",
+                    dataType: "Json",
+                    contentType: "application/json",
+                    success: function (result) {
+
+                    }
+                });
+                currentMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+
+        }
+        function addMedication2() {
+            const currentMedications = document.getElementById('currentMedications2');
+            const selectedMedications = document.getElementById('selectedMedications2');
+
+            Array.from(currentMedications.selectedOptions).forEach(option => {
+                data = { pat: '@Model.Patient_Records.Patient_ID_no', id: option.value }
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "@Url.Action("AddPatCon")",
+                    dataType: "Json",
+                    contentType: "application/json",
+                    success: function (result) {
+
+                    }
+                });
+                selectedMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+        }
+
+        function removeMedication2() {
+            const currentMedications = document.getElementById('currentMedications2');
+            const selectedMedications = document.getElementById('selectedMedications2');
+
+            Array.from(selectedMedications.selectedOptions).forEach(option => {
+                data = { pat: '@Model.Patient_Records.Patient_ID_no', id: option.value }
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "@Url.Action("DelPatCon")",
+                    dataType: "Json",
+                    contentType: "application/json",
+                    success: function (result) {
+
+                    }
+                });
+                currentMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+
+        }
+
+        function Next1(){
+            $('#p-1, #p-2').toggle()
+        }
+        function Prev1(){
+            $('#p-1, #p-2').toggle()
+        }
+        function Prev2(){
+            $('#p-3, #p-2').toggle()
+        }
+        function Prev3(){
+            $('#p-3, #p-4').toggle()
+        }
+
+        function Next2(){
+            $('#p-3, #p-2').toggle()
+        }
+        function Next3(){
+            $('#p-3, #p-4').toggle()
+        }
+
+        $(document).ready(function () {
+            var value = $('#province').val();
+            var obj = { id: value };
+            $.ajax({
+                type: "GET",
+                data: obj,
+                url: "@Url.Action("GetCity")",
+                dataType: "Json",
+                contentType: "application/json",
+                success: function (result) {
+                    $('#city').html('');
+                    var options = '';
+                    for (let i = 0; i < result.length; i++) {
+                        const obj = result[i];
+                        options += '<option value="' + obj.cityID + '">' + obj.cityName + '</option>';
+                    }
+                    $('#city').html(options);
+                }
+            });
+        });
+        $('#province').on("change", function () {
+            var value = $('#province').val();
+            var obj = { id: value };
+            $.ajax({
+                type: "GET",
+                data: obj,
+                url: "@Url.Action("GetCity")",
+                dataType: "Json",
+                contentType: "application/json",
+                success: function (result) {
+                    $('#city').html('');
+                    var options = '';
+                    for (let i = 0; i < result.length; i++) {
+                        const obj = result[i];
+                        options += '<option value="' + obj.cityID + '">' + obj.cityName + '</option>';
+                    }
+                    $('#city').html(options);
+                    $.ajax({
+                        type: "GET",
+                        data: { id: $('#city').val() },
+                        url: "@Url.Action("GetSuburb")",
+                        dataType: "Json",
+                        contentType: "application/json",
+                        success: function (result) {
+                            $('#suburb').html('');
+                            var options = '';
+                            for (let i = 0; i < result.length; i++) {
+                                const obj = result[i];
+                                options += '<option value="' + obj.suburbID + '">' + obj.suburbName + '</option>';
+                            }
+                            $('#suburb').html(options);
+                        }
+                    });
+                }
+            });
+        });
+        $('#city').on("change", function () {
+
+            $.ajax({
+                type: "GET",
+                data: { id: $('#city').val() },
+                url: "@Url.Action("GetSuburb")",
+                dataType: "Json",
+                contentType: "application/json",
+                success: function (result) {
+                    $('#suburb').html('');
+                    var options = '';
+                    for (let i = 0; i < result.length; i++) {
+                        const obj = result[i];
+                        options += '<option value="' + obj.suburbID + '">' + obj.suburbName + '</option>';
+                    }
+                    $('#suburb').html(options);
+                }
+            });
+        });
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

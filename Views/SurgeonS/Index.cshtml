@@ -1,0 +1,56 @@
+﻿@* @model Surgeon__Day_Hospital_.Models.Patient_Records *@
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "Surgeon_Layout";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-8">
+            <h2 class="text-warning">Patients</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="SurgeonS" asp-action="AddPatient" class="btn btn-warning">Add a Patient</a>
+        </div>
+    </div>
+    <br />
+    <table class="table table-bordered table-striped text-primary offcanvas-backdrop: float-md-end" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Patient
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Nurse
+                </th>
+                <th>
+                    Ward
+                </th>
+                <th>
+                    Bed
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var fight in ViewBag.ViewPatient)
+            {
+                <tr class="text-white">
+                    <td>@fight.Patient_Name  @fight.Patient_Surname</td>
+                    <td>@fight.Status</td>
+                    <td>@fight.Name  @fight.Surname</td>
+                    <td>@fight.WardName</td>
+                    <td>@fight.BedNumber</td>
+                    <td>
+                        <a asp-action="UpdateAddress" asp-route-id="@fight.AdmissionID">Edit</a> |
+                        <a asp-action="DeleteAddress" asp-route-id="@fight.AdmissionID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

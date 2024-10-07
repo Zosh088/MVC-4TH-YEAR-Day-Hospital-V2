@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Admin_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Address_Book</title>
+</head>
+<body>
+<p>
+    <a asp-action="AddAddress">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Street
+            </th>
+            <th>
+                Suburb
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Province
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in ViewBag.ViewAddress) {
+        <tr>
+            <td>
+                @item.StreetName
+            </td>
+            <td>
+                @item.SuburbName
+            </td>
+            <td>
+                @item.CityName
+            </td>
+            <td>
+                @item.ProvinceName
+            </td>
+            <td>
+                <a asp-action="UpdateAddress" asp-route-id="@item.AddressID">Edit</a> |
+                <a asp-action="DeleteAddress" asp-route-id="@item.AddressID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

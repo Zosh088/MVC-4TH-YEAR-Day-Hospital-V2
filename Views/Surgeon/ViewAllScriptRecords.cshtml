@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Surgeon__Day_Hospital_.Models.Script_Records>
+
+@{
+    ViewData["Title"] = "All Prescription Records";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookings</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body>
+
+    @if (Model != null && Model.Any())
+    {
+        <h1>Existing Prescriptions for @Model.FirstOrDefault().Patient.Patient_Name</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date Issued</th>
+                    <th>Time Issued</th>
+                    <th>Urgent</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var prescription in Model)
+                {
+                    <tr>
+                        <td>@prescription.DateIssued</td>
+                        <td>@prescription.TimeIssued</td>
+                        <td>@prescription.Urgent</td>
+                        <td>@prescription.Status</td>
+                        <td>
+                            <a href="@Url.Action("AddMedicine", new { scriptId = prescription.ScriptID })" class="btn btn-primary">Add/View Medications</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No prescriptions found.</p>
+    }
+
+</body>
+</html>

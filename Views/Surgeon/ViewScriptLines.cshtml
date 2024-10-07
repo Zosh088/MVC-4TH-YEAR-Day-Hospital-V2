@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Surgeon__Day_Hospital_.Models.Script_Lines>
+
+@{
+    ViewData["Title"] = "View Medications for Script";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<h2>Medications for Script ID: @Model.FirstOrDefault()?.ScriptID</h2>
+
+<hr />
+
+@if (Model != null && Model.Any())
+{
+    <h4>Medications</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pharmacy Name</th>
+                <th>Quantity</th>
+                <th>Instructions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model)
+            {
+                <tr>
+                    <td>@line.Pharmacy.Name</td>
+                    <td>@line.Quantity</td>
+                    <td>@line.Instructions</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br/>
+    <a class="btn btn-primary" asp-controller="Surgeon" asp-action="ViewAllScriptRecords">Back</a>
+}
+else
+{
+    <p>No medications are associated with this prescription.</p>
+}

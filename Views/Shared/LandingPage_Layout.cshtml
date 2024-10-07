@@ -1,0 +1,158 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication1</title>
+    @*    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Gates Day Hospital</strong> . </a>
+@*                     <ul class="icons">
+                        <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+                        <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+                    </ul> *@
+                </header>
+
+                @RenderBody()
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+
+                <!-- Search -->
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Search" />
+                    </form>
+                </section>
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Menu</h2>
+                    </header>
+                    <ul>
+                        <li><a asp-action="Index">Homepage</a></li>
+                        <li><a asp-action="GenericPage">Generic</a></li>
+                        <li><a href="#">Elements</a></li>
+                        <li>
+                            <span class="opener">Healthcare services</span>
+                            <ul>
+                                <li><a href="#">Chronic Medication</a></li>
+                                <li><a href="#">Family Planning</a></li>
+                                <li><a href="#">Counceling</a></li>
+                                <li><a href="#">Referals</a></li>
+                                <li><a href="#">BEV</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Etiam Dolore</a></li>
+                        <li><a href="#">Adipiscing</a></li>
+                        <li>
+                            <span class="opener">Our Doctors</span>
+                            <ul>
+                                <li><a href="#">General Surgeon</a></li>
+                                <li><a href="#">Dietician</a></li>
+                                <li><a href="#">Anaesthetist</a></li>
+                                <li><a href="#">Pscologist</a></li>
+                                <li><a href="#">Trauma</a></li>
+                                <li><a href="#">Dermatologist</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Health Information</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Conatact us</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Section -->
+                <section>
+                    @* <header class="major">
+                        <h2>Ante interdum</h2>
+                    </header>
+                    <div class="mini-posts">
+                        <article>
+                            <a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                    </div>
+                    <ul class="actions">
+                        <li><a href="#" class="button">More</a></li>
+                    </ul> *@
+       @*              <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                        </form>
+                    </li>
+                </section> *@
+
+                <!-- Section -->
+                <section>
+                    <header class="major">
+                        <h2>Get in touch</h2>
+
+
+
+                    </header>
+                    <p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                    <ul class="contact">
+                            <li class="icon solid fa-envelope"><a href="#">baybreeze@gmail.com</a></li>
+                        <li class="icon solid fa-phone">(041) 583-2121</li>
+                        <li class="icon solid fa-home">
+                                18th Avenue, Summerstand<br />
+                            Gqeberha, 6001
+                        </li>
+                    </ul>
+                </section>
+                @* <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+                </li> *@
+                @* <li class="nav-item"> *@
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+                @* </li> *@
+                <!-- Footer -->
+                <footer id="footer">
+                    <p class="copyright">&copy; Bay Breeze Day Hospital. All rights reserved. Design by MVC 4TH YEAR GROUP 05.@* Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p> *@
+                </footer>
+
+            </div>
+        </div>
+        @*        </main>
+        </div>*@
+
+    </div>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/browser.min.js"></script>
+    <script src="~/assets/js/breakpoints.min.js"></script>
+    <script src="~/assets/js/util.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>a

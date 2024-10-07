@@ -1,0 +1,75 @@
+﻿@model Surgeon__Day_Hospital_.Models.Theatre_Bookings
+
+@{
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Updating a Booking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+@inject IHttpContextAccessor contextAccessor
+<body>
+    <h1>Updating a Booking</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="Surgeon" asp-action="UpdateBooking" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div>
+                    <input type="hidden" asp-for="TheatreBookingID" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SurgeonID" class="control-label"></label>
+                    <input asp-for="SurgeonID" class="form-control" readonly value="@contextAccessor.HttpContext.Session.GetString("user_id")" />
+                    <span asp-validation-for="SurgeonID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Patient_ID_no" class="control-label"></label>
+                    <input asp-for="Patient_ID_no" class="form-control" readonly/>
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                    @* <input asp-for="Patient_ID_no" class="form-control" readonly value="@Model.Patient_ID_no"/> *@
+                    <span asp-validation-for="Patient_ID_no" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input type="date" asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Session" class="form-label">Session: </label>
+                    <select placeholder="Session.." asp-for="Session" class="form-select">
+                        <option>Morning</option>
+                        <option>Afternoon</option>
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="TheatreID" class="form-label">Theatre: </label>
+                    <select placeholder="Theatre.." asp-for="TheatreID" class="form-select">
+                        @foreach (var theatre in ViewBag.Theatre)
+                        {
+                            <option value="@theatre.TheatreID">@theatre.TheatreName</option>
+                        }
+                    </select>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-info" />
+                    <a class="btn btn-danger" asp-controller="Surgeon" asp-action="ViewBookings">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@

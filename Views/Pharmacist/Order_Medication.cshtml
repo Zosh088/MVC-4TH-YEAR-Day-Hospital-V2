@@ -1,0 +1,177 @@
+﻿@using Surgeon__Day_Hospital_;
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Pharmacist_Layout";
+}
+
+
+<br />
+<br />
+
+<div class="order-form">
+    <h2>New order</h2>
+    <div class="form-section">
+        <label for="brand-name">Brand name</label>
+        <input type="text" id="brand-name" value="Benylin 4 flu" disabled>
+    </div>
+
+    <div class="form-section" id="active-ingredients-section">
+        <div class="ingredient-group">
+            <label>Active ingredient(s)</label>
+            <input type="text" value="Paracetamol" class="ingredient-input">
+            <label>Dosage Strength</label>
+            <input type="text" value="500mg" class="strength-input">
+        </div>
+
+        <div class="ingredient-group">
+            <label>Active ingredient(s)</label>
+            <input type="text" value="Diphenhydramine" class="ingredient-input">
+            <label>Dosage Strength</label>
+            <input type="text" value="12.5mg" class="strength-input">
+        </div>
+
+        <!-- Add new ingredient fields here -->
+    </div>
+
+    <!-- Button to add more active ingredients -->
+    <button id="add-ingredient-btn" class="add-button">+ Add Active Ingredient</button>
+
+    <div class="form-section">
+        <label for="dosage-form">Dosage form</label>
+        <input type="text" id="dosage-form" value="Syrup" disabled>
+    </div>
+
+    <div class="form-section">
+        <label for="expiry-date">Expiry date</label>
+        <input type="text" id="expiry-date" value="2027/05/28" disabled>
+    </div>
+
+    <div class="form-section">
+        <label for="package-type">Package Type</label>
+        <input type="text" id="package-type" value="Box" disabled>
+    </div>
+
+    <div class="form-section">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" value="160">
+    </div>
+
+    <div class="form-section">
+        <label for="supplier">Supplier</label>
+        <input type="text" id="supplier" value="SA Pharm group" disabled>
+    </div>
+
+    <div class="form-section">
+        <label for="pharmacist">Pharmacist</label>
+        <input type="text" id="pharmacist" value="Richard James" disabled>
+    </div>
+
+    <div class="form-section">
+        <label for="order-date">Date</label>
+        <input type="text" id="order-date" value="20/06/2024" disabled>
+    </div>
+
+   
+
+    <div class="form-section buttons">
+        <button class="confirm-button">Confirm Order</button>
+        <button class="cancel-button">Cancel</button>
+    </div>
+</div>
+
+<!-- Adding styles -->
+<style>
+    .order-form {
+        font-family: Arial, sans-serif;
+        width: 60%;
+        margin: auto;
+        border: 2px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .form-section {
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .ingredient-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .add-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+        .add-button:hover {
+            background-color: #0056b3;
+        }
+
+    .signature-box {
+        text-align: center;
+    }
+
+    .buttons {
+        text-align: right;
+    }
+
+    .confirm-button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .cancel-button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+</style>
+
+<!-- JavaScript for dynamic fields -->
+<script>
+    document.getElementById('add-ingredient-btn').addEventListener('click', function () {
+        // Create a new ingredient group
+        const newIngredientGroup = document.createElement('div');
+        newIngredientGroup.classList.add('ingredient-group');
+
+        // Add the input fields for the new ingredient
+        newIngredientGroup.innerHTML = `
+                <label>Active ingredient(s)</label>
+                <input type="text" class="ingredient-input" placeholder="Active ingredient">
+                <label>Dosage Strength</label>
+                <input type="text" class="strength-input" placeholder="Dosage Strength">
+            `;
+
+        // Append the new ingredient group to the form
+        document.getElementById('active-ingredients-section').appendChild(newIngredientGroup);
+    });
+</script>

@@ -1,0 +1,145 @@
+﻿
+
+@{
+    ViewData["Title"] = "Medical History";
+    Layout = "NurseLayout";
+}
+
+<h2>Medical History</h2>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medications List</title>
+    <style>
+        .medication-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            margin: 20px;
+        }
+
+        .medication-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        select {
+            width: 200px;
+            height: 150px;
+        }
+
+        button {
+            margin-top: 10px;
+            width: 100px;
+        }
+            .container
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box {
+            margin: 0 20px;
+            width: 200px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        button {
+            margin: 5px 0;
+
+
+
+
+
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class="medication-container">
+        <!-- Current Medications -->
+        <div class="medication-box">
+            <label for="currentMedications">Current Medications</label>
+            <select id="currentMedications" multiple>
+                <option value="Metformin">Metformin</option>
+                <option value="Omeprazole">Omeprazole</option>
+                <option value="Losartan">Losartan</option>
+                <option value="Hydrocodone">Hydrocodone</option>
+                <option value="Lisinopril">Lisinopril</option>
+            </select>
+            <button id="addButton" onclick="addMedication()">Add &gt;&gt;</button>
+        </div>
+
+        <!-- Selected Medications -->
+        <div class="medication-box">
+            <label for="selectedMedications">Selected Medications</label>
+            <select id="selectedMedications" multiple>
+                <!-- Medications will be added here -->
+            </select>
+            <button id="removeButton" onclick="removeMedication()">&lt;&lt; Remove</button>
+        </div>
+    </div>
+
+    <script>
+        function addMedication() {
+            const currentMedications = document.getElementById('currentMedications');
+            const selectedMedications = document.getElementById('selectedMedications');
+
+            Array.from(currentMedications.selectedOptions).forEach(option => {
+                selectedMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+        }
+
+        function removeMedication() {
+            const currentMedications = document.getElementById('currentMedications');
+            const selectedMedications = document.getElementById('selectedMedications');
+
+            Array.from(selectedMedications.selectedOptions).forEach(option => {
+                currentMedications.add(option.cloneNode(true));
+                option.remove();
+            });
+
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+

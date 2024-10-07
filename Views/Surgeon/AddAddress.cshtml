@@ -1,0 +1,93 @@
+﻿@model Surgeon__Day_Hospital_.Models.Address_Book;
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Admin_Layout";
+}
+
+<div class="text-center text-white">
+    <h2>Adding an Address</h2>
+</div>
+
+
+<hr />
+<br />
+@*<div asp-validation-summary="ModelOnly" class="text-danger">*@
+<div class="row">
+    <div class="col-6">
+        <div class="card text-white" style="width:80rem; background-color: revert;">
+
+            <div class="card-hearder">
+                <div class="text-center">
+                    @* <h2>Add an Address</h2> *@
+
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-controller="Surgeon" asp-action="AddAddress" method="post">
+
+                        <fieldset>
+                            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                            <div class="mb-3">
+                                <label asp-for="StreetName" class="form-label">Street: </label>
+                                <input asp-for="StreetName" class="form-control">
+                                <span asp-validation-for="StreetName" class="text-danger"></span>
+
+                            </div>
+                            <div>
+                                <label asp-for="SuburbID" class="form-label">Suburb: </label>
+                                <select asp-for="SuburbID" class="form-select">
+                                    <option>Choose a Suburb..</option>
+                                    @foreach (var sub in ViewBag.Suburb_Records)
+                                    {
+                                        <option value="@sub.SuburbID">@sub.SuburbName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <label asp-for="CityID" class="form-label">City: </label>
+                                <select asp-for="CityID" class="form-select">
+                                    <option>Choose a City..</option>
+                                    @foreach (var sub in ViewBag.City_Records)
+                                    {
+                                        <option value="@sub.CityID">@sub.CityName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <label asp-for="ProvinceID" class="form-label">Province: </label>
+                                <select asp-for="ProvinceID" class="form-select">
+                                    <option>Choose a Province..</option>
+                                    @foreach (var sub in ViewBag.Province_Records)
+                                    {
+                                        <option value="@sub.ProvinceID">@sub.ProvinceName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <br />
+                            <div class="row">
+                                <div class="col-9">
+                                    @*<button type="submit" class="btn btn-outline-primary" style="align-items:center;">Add Villain</button>*@
+                                    <input type="submit" class="btn btn-outline-primary text-center" value="Add Address" />
+                                </div>
+                                <div class="col">
+                                    @*This button is to clear all data from the textbox*@
+                                    @*<button type="submit" class="btn btn-outline-success" style="align-items:center;">Clear</button>*@
+                                    <input class="btn btn-outline-success" type="reset" value="Reset">
+                                </div>
+                                <div class="col">
+                                    <button asp-action="Address_Book" class="btn btn-outline-danger" style="align-items:center;">Back</button>
+                                </div>
+                            </div>
+                        </fieldset>                    
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

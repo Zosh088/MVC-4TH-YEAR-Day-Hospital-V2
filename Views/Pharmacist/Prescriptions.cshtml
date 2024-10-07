@@ -1,0 +1,62 @@
+﻿@using Surgeon__Day_Hospital_;
+@model IEnumerable<Script_Records>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Pharmacist_Layout";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+<h2>Active Prescriptions</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Script ID</th>
+            <th>Patient Name</th>
+            <th>Script</th>
+            <th>Surgeon name</th>
+            <th>Date Issued</th>
+            <th>Status</th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var prescription in Model)
+        {
+            <tr>
+               
+                <td>@prescription.ScriptID</td>
+                <td class="@(prescription.Urgent == true ? "urgent-highlight" : "")">@prescription.Patient.Patient_Name @prescription.Patient.Patient_Surname </td>
+                <td><a class="btn btn-success" href="@Url.Action("ScriptPage","Pharmacist", new {id = prescription.ScriptID})">View</a></td>
+                <td>@prescription.Users.Name @prescription.Users.Surname</td>
+                <td>@prescription.DateIssued.ToShortDateString()</td>
+                <td>@prescription.Status</td>
+               
+                
+            </tr>
+           
+        }
+    </tbody>
+</table>
+
+<style>
+    .urgent-highlight {
+        color:red; /* You can change this to the color you prefer for urgent scripts */
+        font-weight: bold;
+    }
+</style>

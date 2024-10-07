@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Surgeon__Day_Hospital_.DapperLibrary.ViewModels.AdmittedPatVM>
+
+@{
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookings</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body>
+    <h1>Today's Admitted Patients</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Nurse</th>
+                <th>Admission Time</th>
+                <th>Ward</th>
+                <th>Bed</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var adm in Model)
+                {
+                    <tr>
+                        <td>@adm.PatName</td>
+                        <td>@adm.NurName</td>
+                        <td>@adm.AdmTime</td>
+                        <td>@adm.Ward</td>
+                        <td>@adm.Bed</td>
+                        <td><div>
+                                <a asp-controller="Surgeon" asp-action="AddPrescription" asp-route-ID="@adm.Id" class="btn btn-warning">Prescribe</a>
+                        </div></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,109 @@
+﻿@using Surgeon__Day_Hospital_
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Pharmacy_StockControl";
+}
+
+<br />
+<br />
+
+@{
+    ViewData["Title"] = "Stock Control Dashboard";
+}
+
+<div class="dashboard-container">
+    <h1>Gates Day Hospital</h1>
+    <h2>Stock Control Dashboard</h2>
+
+    <div class="stock-items">
+        <!-- Stock items card -->
+        <div class="stock-item green" onclick="location.href='@Url.Action("StockItems","Pharmacist")';">
+            <p>💊</p>
+            <p>Stock items: 6</p>
+        </div>
+        <br/>
+
+        <!-- Near expiry card -->
+        <div class="stock-item green" onclick="location.href='/Stock/NearExpiry';">
+            <p>⏳</p>
+            <p>Near expiry: 1</p>
+        </div>
+        <br />
+
+        <!-- Low stock card -->
+        <div class="stock-item green" onclick="location.href='/Stock/LowStock';">
+            <p>⚠️</p>
+            <p>Low Stock items: 2</p>
+        </div>
+        <br />
+
+        <!-- Ordered items card -->
+        <div class="stock-item green" onclick="location.href='/Stock/Ordered';">
+            <p>🛒</p>
+            <p>Ordered items: 2</p>
+        </div>
+
+        
+    </div>
+    <br />
+    <!-- Add new medication card -->
+    <div class="stock-item yellow" onclick="location.href='/Stock/AddMedication';">
+        <p>➕</p>
+        <p>Add new medication</p>
+    </div>
+</div>
+
+<style>
+    .dashboard-container {
+        font-family: 'Arial', sans-serif;
+        padding: 20px;
+    }
+
+    h1, h2 {
+        text-align: left;
+        color: #333;
+    }
+
+    .stock-items {
+        display: flex;
+        gap: 20px;
+    }
+
+    .stock-item {
+        width: 150px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-radius: 15px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .stock-item:hover {
+            transform: scale(1.05);
+        }
+
+    .green {
+        background-color: #66bb6a; /* Green color */
+    }
+
+    .yellow {
+        background-color: #fdd835; /* Yellow color */
+    }
+
+    .stock-item p:first-child {
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    .stock-item p:last-child {
+        font-size: 1.2rem;
+        margin-top: 5px;
+    }
+</style>

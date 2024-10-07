@@ -1,0 +1,36 @@
+﻿@using Surgeon__Day_Hospital_;
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Pharmacist_Layout";
+}
+@inject IHttpContextAccessor contextAccessor
+<head>
+    <title>Editorial by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+
+<section id="banner">
+    <div class="content">
+        <header>
+            <h1>
+                Welcome, <br />
+
+            </h1>
+            <h1>@contextAccessor.HttpContext.Session.GetString("user_fullName")</h1>
+            <p> - To give strength, hope and another chance for life.</p>
+        </header>
+        
+        @* <ul class="actions">
+            <li><a href="#" class="button big">Learn More</a></li>
+        </ul> *@
+    </div>
+    <span class="image object">
+        <img src="~/images/Male Pharmacist On Medicine Background.jpeg" alt="" />
+    </span>
+</section>
+
+

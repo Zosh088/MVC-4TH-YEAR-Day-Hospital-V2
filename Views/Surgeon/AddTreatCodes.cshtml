@@ -1,0 +1,227 @@
+﻿@* @model Surgeon__Day_Hospital_.Models.Booking_Codes
+
+@{
+    ViewData["Title"] = "Adding Treatment Codes";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+@inject IHttpContextAccessor contextAccessor
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Updating a Booking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body>
+    <h1>Adding Treatment Codes</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="Surgeon" asp-action="AddTreatCodes" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="TheatreBookingID" class="control-label"></label>
+                    @if (ViewBag.Booking != null)
+                    {
+                        <input asp-for="TheatreBookingID" class="form-control" readonly value="@ViewBag.Booking.TheatreBookingID" />
+                    }
+                    else
+                    {
+                        <select asp-for="TheatreBookingID" class="form-select">
+                            @foreach (var book in ViewBag.Bookings)
+                            {
+                                <option value="@book.TheatreBookingID">@book.Patient_ID_no</option>
+                            }
+                        </select>
+                    }
+                    @* <input asp-for="Patient_ID_no" class="form-control" readonly value="@Model.Patient_ID_no"/> 
+                    <span asp-validation-for="TheatreBookingID" class="text-danger"></span>
+                </div>
+                <br />
+                <div>
+                    <label asp-for="TreatmentCodeID" class="form-label">Treatment Codes: </label>
+                    <select placeholder="Treatment Code.." asp-for="TreatmentCodeID" class="form-select">
+                        @foreach (var treat in ViewBag.TCodes)
+                        {
+                            <option value="@treat.TreatmentCodeID">@treat.ICD10Code</option>
+                        }
+                    </select>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                    @* <a class="btn btn-danger" asp-controller="Surgeon" asp-action="ViewBookings">Back to List</a> 
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ *@
+
+@model Surgeon__Day_Hospital_.Models.Booking_Codes
+
+@{
+    ViewData["Title"] = "Adding Treatment Codes";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+@inject IHttpContextAccessor contextAccessor
+
+<h1>Adding Treatment Codes</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!-- Booking Selection Form -->
+        <form asp-controller="Surgeon" asp-action="AddTreatCodes" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Booking Selection Dropdown -->
+            <div class="form-group">
+                <label asp-for="TheatreBookingID" class="control-label">Select Booking</label>
+                <select asp-for="TheatreBookingID" class="form-select" name="booking" onchange="this.form.submit()">
+                    <option value="">Select a Booking...</option>
+                    @foreach (var book in ViewBag.Bookings)
+                    {
+                        <option value="@book.TheatreBookingID" selected="@(book.TheatreBookingID == (ViewBag.Booking?.TheatreBookingID ?? 0))">
+                            @book.Patient_ID_no
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="TheatreBookingID" class="text-danger"></span>
+            </div>
+        </form>
+        <br />
+
+        <!-- Treatment Code Selection (Only visible if a booking is selected) -->
+        @if (ViewBag.Booking != null)
+        {
+            <form asp-controller="Surgeon" asp-action="AddTreatCodes" method="post">
+                <input type="hidden" name="booking" value="@ViewBag.Booking.TheatreBookingID" />
+
+                <div class="form-group">
+                    <label asp-for="TreatmentCodeID" class="form-label">Treatment Codes: </label>
+                    <select asp-for="TreatmentCodeID" class="form-select" name="BCodes_TreatmentCodeID">
+                        @foreach (var treat in ViewBag.TCodes)
+                        {
+                            <option value="@treat.TreatmentCodeID">@treat.ICD10Code</option>
+                        }
+                    </select>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+<hr />
+
+<!-- Display existing treatment codes for the selected booking -->
+<!-- Display existing treatment codes for the selected booking -->
+@if (ViewBag.Booking != null)
+{
+    <h2>Existing Treatment Codes</h2>
+    @if (ViewBag.ExistingTreatmentCodes != null && ViewBag.ExistingTreatmentCodes.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    @* <th>ID</th> *@
+                    <th>ICD10 Code</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in ViewBag.ExistingTreatmentCodes)
+                {
+                    <tr>
+                        @* <td>@record.TreatmentCodeID</td> *@
+                        <td>@record.Treatment_.ICD10Code</td> <!-- ICD10 Code -->
+                        <td>@record.Treatment_.Description</td> <!-- Description -->
+                        <td>
+                            <form asp-controller="Surgeon" asp-action="RemoveTreatmentCode" method="post">
+                                <input type="hidden" name="id" value="@record.TreatmentCodeID" />
+                                <input type="hidden" name="booking" value="@ViewBag.Booking.TheatreBookingID" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No treatment codes tied to this booking yet.</p>
+    }
+}
+
+<!-- Display new treatment codes to be added -->
+@if (ViewBag.TempTreatmentCodes != null && ViewBag.TempTreatmentCodes.Count > 0)
+{
+    <h2>New Treatment Codes to be Added</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                @* <th>ID</th> *@
+                <th>ICD10 Code</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in ViewBag.TempTreatmentCodes)
+            {
+                <tr>
+                    @* <td>@record.TreatmentCodeID</td> *@
+                    <td>@record.Treatment_.ICD10Code</td> <!-- ICD10 Code -->
+                    <td>@record.Treatment_.Description</td> <!-- Description -->
+                    <td>
+                        <form asp-controller="Surgeon" asp-action="RemoveTreatmentCode" method="post">
+                            <input type="hidden" name="id" value="@record.TreatmentCodeID" />
+                            <input type="hidden" name="booking" value="@ViewBag.Booking.TheatreBookingID" />
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-controller="Surgeon" asp-action="SaveTreatCodes" method="post">
+        <input type="hidden" name="booking" value="@ViewBag.Booking?.TheatreBookingID" />
+        <button type="submit" class="btn btn-success">Save All</button>
+    </form>
+}
+else
+{
+    <p>No new treatment codes added yet.</p>
+}

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Surgeon__Day_Hospital_.DapperLibrary.ViewModels.BookedPatVM>
+
+@{
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookings</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body>
+    <h1>Viewing all your Bookings</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+
+    <p>
+        <a class="btn btn-danger" asp-controller="Surgeon" asp-action="AddBooking">Add a New Booking</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Theatre</th>
+                <th>Session</th>
+                <th>Date Booked</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.PatName</td>
+                        <td>@item.Theater</td>
+                        <td>@item.Session</td>
+                        <td>@item.BookDate</td>
+                        <td><div>
+                                <a asp-controller="Surgeon" asp-action="UpdateBooking" asp-route-ID="@item.id" class="btn btn-info">Update</a>
+                                <a asp-controller="Surgeon" asp-action="DeleteBooking" asp-route-ID="@item.id" class="btn btn-warning">Delete</a>
+                        </div></td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>

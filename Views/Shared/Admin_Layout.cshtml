@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Surgeon__Day_Hospital_.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication1</title>
+    @*    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Gates Day Hospital</strong> . </a>
+@*                     <ul class="icons">
+                        <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    </ul> *@
+                </header>
+
+                @RenderBody()
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+
+                <!-- Search -->
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Search" />
+                    </form>
+                </section>
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Menu</h2>
+                    </header>
+                    <ul>
+                       @*  <li><a asp-action="Index">Home</a></li>
+                        <li><a asp-action="Prescriptions">Prescriptions</a></li> *@
+                        <li><a href="#">Staff Members</a></li>
+                        <li><a asp-controller="Surgeon" asp-action="Address_Book">Addresses</a></li>
+                        <li><a href="#">Patients</a></li>
+                        <li><a href="#">Register patients</a></li> 
+                        
+                        <li class="nav-item">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+                
+
+                <!-- Section -->
+                <section>
+                    <header class="major">
+                        <h2>Call numbers</h2>
+
+
+
+                    </header>
+                    @*                     <p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                    *@                    <ul class="contact">
+                        <li class="icon solid fa-envelope"><a href="#">Gates@DayHopsitla.com</a></li>
+                        <li class="icon solid fa-phone">(041) 401 300 - Reception</li>
+
+                    </ul>
+                </section>
+
+
+            </div>
+        </div>
+        @*        </main>
+        </div>*@
+
+    </div>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/browser.min.js"></script>
+    <script src="~/assets/js/breakpoints.min.js"></script>
+    <script src="~/assets/js/util.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>a

@@ -1,0 +1,83 @@
+﻿
+
+@{
+    ViewData["Title"] = "My Patients";
+    Layout = "NurseLayout";
+}
+
+<h2>My Patients</h2>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Table</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .action-buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+@model IEnumerable<Admission_Records>
+@if(TempData["error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["error"]
+    </div>
+}
+@if(TempData["success"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["success"]
+    </div>
+}
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Surgeon</th>
+                            <th>Ward</th>
+                            <th>Bed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Patient.Patient_Name</td>
+                                    <td>@item.Patient.Patient_Surname</td>
+                                    <td>@item.Bookings.User.Name</td>
+                                    <td>@item.Beds.WardRecords.WardName</td>
+                                    <td>@item.Beds.BedNumber</td>
+                                    <td><a class="btn " href="@Url.Action("PatientInfo","Nurse", new {Pat = item.Patient_ID_no})">Patient Record</a></td>
+                                    <td><a class="btn " href="@Url.Action("","Nurse", new {id = 1})">Manage Medications</a></td>
+                                    <td><a class="btn " href="@Url.Action("RecaptureVitals","Nurse", new {Pat = item.Patient_ID_no})">Recapture Vitals</a></td>
+                                    <td><a class="btn " href="@Url.Action("Discharge","Nurse", new {Pat = item.Patient_ID_no, id = item.Bookings.TheatreBookingID})">Discharge</a></td>
+                                    
+                                </tr>
+                            }
+                        }
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

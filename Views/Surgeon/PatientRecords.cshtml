@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Surgeon__Day_Hospital_.Models.Patient_Records>
+
+@{
+    ViewData["Title"] = "PatientRecords";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<h1>PatientRecords</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient_Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient_Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient_Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in ViewBag.Patient_Records) {
+        <tr>
+            <td>
+                @item.Patient_Name
+            </td>
+            <td>
+                @item.Patient_Surname
+            </td>
+            <td>
+                 @item.Patient_Phone
+            </td>
+            <td>
+                 @item.Patient_Gender
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Patient_ID_no">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Patient_ID_no">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Patient_ID_no">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

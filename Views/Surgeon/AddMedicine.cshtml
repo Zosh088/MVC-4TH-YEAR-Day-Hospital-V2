@@ -1,0 +1,80 @@
+﻿@model List<Surgeon__Day_Hospital_.Models.Script_Lines>
+
+@{
+    ViewData["Title"] = "AddMedicine";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookings</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body>
+    <h1>Add Medications to Prescription</h1>
+
+    <form asp-action="AddMedicine" method="post">
+        <input type="hidden" name="ScriptID" value="@ViewBag.ScriptID" />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Medication</th>
+                    <th>Quantity</th>
+                    <th>Instructions</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="medicationRows">
+                @foreach (var line in Model)
+                {
+                    <tr>
+                        <td>
+                            <select name="scriptLines[@Model.IndexOf(line)].PharmacyID" class="form-control">
+                                @foreach (var medication in ViewBag.Medications)
+                                {
+                                    <option value="@medication.PharmacyID">@medication.Name</option>
+                                }
+                            </select>
+                        </td>
+                        <td><input type="number" name="scriptLines[@Model.IndexOf(line)].Quantity" class="form-control" /></td>
+                        <td><input type="text" name="scriptLines[@Model.IndexOf(line)].Instructions" class="form-control" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button type="button" id="addMedicationRow" class="btn btn-secondary">Add Another Medication</button>
+        <button type="submit" class="btn btn-primary">Save Medications</button>
+    </form>
+</body>
+</html>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#addMedicationRow').click(function() {
+                $('#medicationRows').append(`
+                            <tr>
+                                <td>
+                                    <select name="scriptLines[${$('#medicationRows').children().length}].MedicationID" class="form-control">
+        @foreach (var medication in ViewBag.Medications)
+        {
+                                                <option value="@medication.MedicationID">@medication.MedicationName</option>
+        }
+                                    </select>
+                                </td>
+                                <td><input type="number" name="scriptLines[${$('#medicationRows').children().length}].Quantity" class="form-control" /></td>
+                                <td><input type="text" name="scriptLines[${$('#medicationRows').children().length}].Instructions" class="form-control" /></td>
+                            </tr>
+                        `);
+            });
+        });
+    </script>
+}

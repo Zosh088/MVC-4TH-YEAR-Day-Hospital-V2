@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34902.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC 4TH YEAR(Day Hospital)", "MVC 4TH YEAR(Day Hospital).csproj", "{58AF9C31-904D-497F-A105-FD926644061C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D9339FA-DA92-48FB-BE37-54DB77C99ECF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58AF9C31-904D-497F-A105-FD926644061C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58AF9C31-904D-497F-A105-FD926644061C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58AF9C31-904D-497F-A105-FD926644061C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58AF9C31-904D-497F-A105-FD926644061C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DBA62B87-8EFC-4B6F-9924-AD920AEBFCEF}
+	EndGlobalSection
+EndGlobal

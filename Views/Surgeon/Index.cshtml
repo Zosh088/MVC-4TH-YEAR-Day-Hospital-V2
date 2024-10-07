@@ -1,0 +1,64 @@
+﻿@using Surgeon__Day_Hospital_;
+@model IEnumerable<Surgeon__Day_Hospital_.Models.Suburb_Records>
+@* @{
+    ViewData["Title"] = "Surgeon - Day Hospital";
+} *@
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-8">
+            <h2 class="text-warning">List of Suburbs..</h2>
+        </div>
+@*         <div class="col-6 text-right">
+            <a asp-controller="Avatar" asp-action="Create" class="btn btn-warning">Add a Bender</a>
+        </div> *@
+    </div>
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+
+        <table class="table table-bordered table-striped text-primary offcanvas-backdrop: float-md-end" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Suburb Name
+                    </th>
+                    <th>
+                        Postal Code
+                    </th>
+                    <th>
+                        City ID
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var burb in Model)
+                {
+                    <tr class="text-white">
+                        <td width="20%">@burb.SuburbName</td>
+                        <td width="20%">@burb.PostalCode</td>
+                        <td width="20%">@burb.CityID</td>
+@*                         <td width="20%">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Avatar" asp-action="Update" asp-route-ID="@burb.SuburbID" class="btn btn-light mx-1">Update</a>
+                                <a asp-controller="Avatar" asp-action="Delete" asp-route-ID="@burb.SuburbID" class="btn btn-secondary mx-1">Delete</a>
+                            </div>
+                        </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <p>No Bender was created yet</p>
+    }
+
+</div>
+

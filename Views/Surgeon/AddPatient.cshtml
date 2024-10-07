@@ -1,0 +1,98 @@
+﻿@model Surgeon__Day_Hospital_.Models.Patient_Records
+
+@{
+    ViewData["Title"] = "AddPatient";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+<h1>Adding a Patient</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!-- This form is used to add a new patient to the system -->
+        <form asp-action="AddPatient" method="post">
+            <!-- Display any validation errors for the entire model -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Patient ID number -->
+            <div class="form-group">
+                <label asp-for="Patient_ID_no" class="control-label"></label>
+                <input asp-for="Patient_ID_no" class="form-control" />
+                <!-- Display any validation errors for the Patient_ID_no property -->
+                <span asp-validation-for="Patient_ID_no" class="text-danger"></span>
+            </div>
+            <br />
+            <!-- Patient name -->
+            <div class="form-group">
+                <label asp-for="Patient_Name" class="control-label"></label>
+                <input asp-for="Patient_Name" class="form-control" />
+                <!-- Display any validation errors for the Patient_Name property -->
+                <span asp-validation-for="Patient_Name" class="text-danger"></span>
+            </div>
+            <br />
+            <!-- Patient surname -->
+            <div class="form-group">
+                <label asp-for="Patient_Surname" class="control-label"></label>
+                <input asp-for="Patient_Surname" class="form-control" />
+                <!-- Display any validation errors for the Patient_Surname property -->
+                <span asp-validation-for="Patient_Surname" class="text-danger"></span>
+            </div>
+            <br />
+            <!-- Patient phone number -->
+            <div class="form-group">
+                <label asp-for="Patient_Phone" class="control-label"></label>
+                <input asp-for="Patient_Phone" class="form-control" />
+                <!-- Display any validation errors for the Patient_Phone property -->
+                <span asp-validation-for="Patient_Phone" class="text-danger"></span>
+            </div>
+            <br />
+            <!-- Patient gender -->
+            <div class="form-group">
+                <label asp-for="Patient_Gender" class="form-label">Gender: </label>
+                <select asp-for="Patient_Gender" class="form-select">
+                    <option value="Other">Other</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+            </div>
+            <br />
+            <!-- Patient email -->
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email: </label>
+                <input asp-for="Email" class="form-control" />
+                <!-- Display any validation errors for the Email property -->
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <br />
+            <!-- Patient Status -->
+            <div class="form-group">
+                <label asp-for="Status" class="control-label">Status: </label>
+                <input asp-for="Status" class="form-control" readonly value="Booked"/>
+            </div>
+            
+            <!-- Space between button and last input -->
+            <br />
+
+            <!-- Submit button -->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <!--
+            This form is used to add a new patient to the system.
+            It contains fields for the patient's ID number, name, surname, phone number, gender, and email.
+            The form is submitted to the AddPatient action of the current controller.
+            Any validation errors are displayed below each field.
+        -->
+    </div>
+</div>
+
+@* <div>
+    <a asp-action="Index">Back to List</a>
+</div> *@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

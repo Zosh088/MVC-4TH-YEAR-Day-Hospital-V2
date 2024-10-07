@@ -1,0 +1,111 @@
+﻿@using Surgeon__Day_Hospital_;
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Pharmacist_Layout";
+}
+
+
+<br />
+<br />
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispensary Unit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .status-pending {
+            background-color: orange;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .status-collected {
+            background-color: green;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+@using Surgeon__Day_Hospital_;
+@model IEnumerable<Script_Records>
+<body>
+    <div class="container">
+        <h2>Dispensary Unit</h2>
+        <p> </p>
+        <p></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Script ID</th>
+                    <th>Patient Name</th>
+                    <th>Script</th>
+                    <th>Surgeon name</th>
+                    <th>Date Issued</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var prescription in Model)
+                {
+                    <tr>
+
+                        <td>@prescription.ScriptID</td>
+                        <td class="@(prescription.Urgent == true ? "urgent-highlight" : "")">@prescription.Patient.Patient_Name @prescription.Patient.Patient_Surname </td>
+                        <td><a class="btn btn-success" href="@Url.Action("ScriptPage","Pharmacist", new {id = prescription.ScriptID})">View</a></td>
+                        <td>@prescription.Users.Name @prescription.Users.Surname</td>
+                        <td>@prescription.DateIssued.ToShortDateString()</td>
+                        <td>@prescription.Status</td>
+
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
+
+
+

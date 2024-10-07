@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Surgeon_Layout";
+}
+
+<head>
+    <title>Editorial by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+@inject IHttpContextAccessor contextAccessor
+<section id="banner">
+    <div class="content">
+        <header>
+            <h1>Welcome,</h1>
+            <h1>Dr. @contextAccessor.HttpContext.Session.GetString("user_fullName")<br /></h1>
+            <p>Connect Health, Bridging Lives.</p>
+        </header>
+        <p>Our purpose is making life better. We’re able to fulfill our purpose – and work towards our vision – because we’re backed by four strategic pillars (growth, efficiency, quality, sustainability), a sustainable business model, and a powerful mission.</p>
+        <ul class="actions">
+            <li><a href="#" class="button big">Learn More</a></li>
+        </ul>
+    </div>
+    <span class="image object">
+        <img src="~/images/Surgeon-with-Nurse.jpg" alt="" />
+    </span>
+</section>
+
+<!-- Section -->
+<section>
+    <header class="major">
+        <h2>Shortcuts</h2>
+    </header>
+    <div class="posts">
+        <article>
+            <h3>New Patient</h3>
+            <p>Adding a new patient to the system in order to make a booking for them.</p>
+            <ul class="actions">
+                <li><a class="button" asp-controller="Surgeon" asp-action="AddPatient" >Pateint</a></li>
+            </ul>
+        </article>
+        <article>
+            <h3>Bookings</h3>
+            <p>Your patient is already in the system.. you view all your bookings in one place and make new ones.</p>
+            <ul class="actions">
+                <li><a class="button" asp-controller="Surgeon" asp-action="ViewBookings" >Bookings</a></li>
+            </ul>
+        </article>
+        <article>
+            <h3>Admitted Patients</h3>
+            <p>View all of your patients that are currently admitted.</p>
+            <ul class="actions">
+                <li><a class="button"  asp-controller="Surgeon" asp-action="AdmittedPatients">Admitted</a></li>
+            </ul>
+        </article>
+@*         <article>
+            <h3>New Prescription</h3>
+            <p>Adding a patient's prescription before and after Surgery.</p>
+            <ul class="actions">
+                <li><a class="button" asp-controller="Surgeon" asp-action="AddPrescription" >More</a></li>
+            </ul>
+        </article> *@
+    </div>
+</section>

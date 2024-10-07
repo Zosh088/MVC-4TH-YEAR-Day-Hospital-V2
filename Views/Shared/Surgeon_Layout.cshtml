@@ -1,0 +1,102 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Surgeon__Day_Hospital_.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surgeon</title>
+    @*    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Gates Day Hospital</strong> . </a>
+@*                     <ul class="icons">
+                        <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+                        <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+                    </ul> *@
+                </header>
+
+                @RenderBody()
+
+            </div>
+        </div>
+
+        <div id="sidebar">
+            <div class="inner">
+
+                <!-- Search -->
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Search" />
+                    </form>
+                </section>
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Menu</h2>
+                    </header>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="SurgeonLandingPage">Homepage</a></li>
+                        @* <li><a asp-controller="SurgeonS"asp-action="Index">Appointments</a></li> *@
+                        <li>
+                            <span class="opener">Surgery Bookings</span>
+                            <ul>
+                                <li><a asp-controller="Surgeon" asp-action="AddPatient">Add Patient</a></li>
+                                <li><a asp-controller="Surgeon" asp-action="AddBooking">Add a Booking</a></li>
+                                <li><a asp-controller="Surgeon" asp-action="AddTreatCodes">Add Treatment Codes</a></li>
+                                <li><a asp-controller="Surgeon" asp-action="ViewBookings">View Bookings</a></li>
+                            </ul>
+                        </li>
+                        <li><a asp-controller="Surgeon" asp-action="AdmittedPatients">Admitted Patients</a></li>
+                        <li>
+                            <span class="opener">Prescriptions</span>
+                            <ul>
+                                <li><a asp-controller="Surgeon" asp-action="AddPrescription">Add Prescription</a></li>
+                                <li><a asp-controller="Surgeon" asp-action="ViewAllScriptRecords">Script Records</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                    @* <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+                    </li> *@
+                    @* <li class="nav-item"> *@
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                    </form>
+                    @* </li> *@
+                    <!-- Footer -->
+                    <footer id="footer">
+                        <p class="copyright">&copy; Bay Breeze Day Hospital. All rights reserved. Design by MVC 4TH YEAR GROUP 05.@* Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p> *@
+                    </footer>
+
+            </div>
+        </div>
+        @*        </main>
+        </div>*@
+
+    </div>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/browser.min.js"></script>
+    <script src="~/assets/js/breakpoints.min.js"></script>
+    <script src="~/assets/js/util.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

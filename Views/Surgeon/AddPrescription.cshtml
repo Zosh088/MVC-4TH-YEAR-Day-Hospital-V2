@@ -1,0 +1,126 @@
+﻿@model Surgeon__Day_Hospital_.Models.Script_Records
+
+@{
+    ViewData["Title"] = "AddPrescription";
+    Layout = "~/Views/Shared/Surgeon_Layout.cshtml";
+}
+
+@inject IHttpContextAccessor contextAccessor
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookings</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+</head>
+<body>
+    <h1>Create a Prescription</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-controller="Surgeon" asp-action="AddPrescription" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="PharmacistID" value="" />
+                <div class="form-group">
+                    <label asp-for="SurgeonID" class="control-label">Surgeon: </label>
+                    <input asp-for="SurgeonID" class="form-control" readonly value="@contextAccessor.HttpContext.Session.GetString("user_id")" />
+                    <span asp-validation-for="SurgeonID" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="Patient_ID_no" class="control-label">Patient's ID:</label>
+                    <select asp-for="Patient_ID_no" class="form-select">
+                        @if (ViewBag.AllPatients != null)
+                        {
+                            @foreach (var pat in ViewBag.AllPatients)
+                            {
+                                <option value="@pat.Patient_ID_no">@pat.Patient_Name @pat.Patient_Surname</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="Patient_ID_no" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="DateIssued" class="control-label">Date of Script:</label>
+                    <input type="date" asp-for="DateIssued" class="form-control" readonly value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="DateIssued" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="TimeIssued" class="control-label">Time of Script:</label>
+                    <input type="time" asp-for="TimeIssued" class="form-control" readonly value="@DateTime.Now.ToString("HH:mm:ss")" />
+                    <span asp-validation-for="TimeIssued" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label">Status:</label>
+                    <input asp-for="Status" class="form-control" readonly value="Prescribed" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group form-check">
+                    <label asp-for="Urgent" class="control-label">Urgent:</label>
+                    <input type="checkbox" />
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create Prescription" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap Modal for Popup Message -->
+    <div class="modal fade" id="popupMessageModal" tabindex="-1" role="dialog" aria-labelledby="popupMessageLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupMessageLabel">Notification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="popupMessageBody">
+                    <!-- The message will be injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+@section Scripts {
+    <!----------------------------------------------------------------------------------- This is for popup messages ----------------------------------------------------------->
+    <script>
+        $(document).ready(function() {
+            var successMessage = '@TempData["SuccessMessage"]';
+            var errorMessage = '@TempData["ErrorMessage"]';
+
+            if (successMessage) {
+                $('#popupMessageBody').text(successMessage);
+                $('#popupMessageModal').modal('show');
+            }
+
+            if (errorMessage) {
+                $('#popupMessageBody').text(errorMessage);
+                $('#popupMessageModal').modal('show');
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+}

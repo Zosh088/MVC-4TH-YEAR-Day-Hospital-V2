@@ -1,0 +1,169 @@
+﻿@using Surgeon__Day_Hospital_
+@model Surgeon__Day_Hospital_.Models.ScriptViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Pharmacist_Layout";
+}
+
+<br />
+<br />
+
+
+
+    <div class="patient-info">
+        <h2>Patient Information</h2>
+        <div class="info-row">
+            <div class="info-left">
+                <p><strong>First names:</strong> @Model.Patient.Patient_Name</p>
+                <p><strong>Last Name:</strong> @Model.Patient.Patient_Surname</p>
+                <p><strong>Contact number:</strong> @Model.Patient.Patient_Phone</p>
+                <p><strong>Email Address:</strong> <a href="mailto:@Model.Patient.Email">@Model.Patient.Email</a></p>
+            </div>
+            <div class="info-right">
+                <p><strong>Nationality:</strong> South African</p> <!-- Fixed value or update if required -->
+                <p><strong>Identity number:</strong> @Model.Patient.Patient_ID_no</p>
+                <p><strong>Gender:</strong> @Model.Patient.Patient_Gender</p>
+                <p><strong>Date of Birth:</strong> @Model.Patient.Patient_DOB.Value.ToShortDateString()</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<div class="prescription">
+    <h2>Prescription</h2>
+    <table class="table">
+        <tr>
+            <th>Instructions</th>
+            <th>Description</th>
+            <th>Quantity</th>
+        </tr>
+        @foreach (var prescription in Model.Meds)
+        {
+            <tr>
+                <td>@prescription.Instructions</td>
+                <td>@prescription.Pharmacy.Name</td>
+                <td>@prescription.Quantity, @prescription.Pharmacy.DosageType.Description</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="buttons">
+    <a class="medical-info" asp-controller="Pharmacist" asp-action="Medical_Information" asp-route-id="@Model.Patient.Patient_ID_no">Medical Information</a>
+    @if (Model.Status == "Prescribed")
+    {
+
+        <a class="btn btn-success" href="@Url.Action("ApproveScript","Pharmacist", new {scriptID = Model.ScriptID})">Approve</a>
+        <a class="btn btn-danger" href="@Url.Action("RejectScript","Pharmacist", new {scriptID = Model.ScriptID})">Reject</a>
+       
+    }
+    
+
+</div>
+
+
+<style>
+
+    .patient-info, .prescription {
+        border: 2px solid Grey;
+          padding: 10px;
+        margin-bottom: 20px;
+    }
+
+        .patient-info h2, .prescription h2 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info-left, .info-right {
+        width: 48%;
+    }
+
+        .info-left p, .info-right p {
+            margin: 5px 0;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .actions {
+        text-align: center; /* Center-align the content inside the container */
+        margin-top: 20px;
+    }
+
+    .btn 
+     {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #fff;
+        margin: 5px;
+        display: inline-block;
+        gap:20px;
+    }
+
+    .btn-success {
+        background-color: #28a745; /* Green background */
+        color: #fff; /* White text */
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin: 5px;
+        display: inline-block;
+    }
+
+    .btn-danger {
+        background-color: #dc3545; /* Red background */
+        color: #fff; /* White text */
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin: 5px;
+        display: inline-block;
+    }
+
+
+
+    .medical-info {
+        background-color: #00f;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
+        margin: 5px;
+        border-radius: 5px
+    }
+
+    
+
+    button {
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+</style>

@@ -1,0 +1,133 @@
+﻿@using Surgeon__Day_Hospital_
+
+@{
+    ViewData["Title"] = "Stock Items";
+    Layout = "Pharmacist_Layout";
+}
+
+<br />
+<br />
+
+@{
+    ViewData["Title"] = "Stock Control Dashboard";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css" />
+
+
+
+<div class="stock-control-container">
+    <h1>Stock Control Dashboard</h1>
+
+    @model IEnumerable<Pharmacy_Medication>
+    <table id="myTable" class="stock-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Dosage Form</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Re-order Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@i.Name</td>
+                    <td>@i.DosageType.Description</td>
+                    <td>@i.Stock</td>
+                    <td class="@(i.Stock < i.ReOrder ? "status low-stock" : "status in-stock")">@(i.Stock < i.ReOrder ? "Low Stock" : "In Stock")</td>
+                    <td>@i.ReOrder</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="new-order-button">New Order</button>
+</div>
+
+<style>
+    .stock-control-container {
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+        text-align: left;
+        color: #333;
+    }
+
+    .toolbar {
+        margin-bottom: 15px;
+    }
+
+    #searchBox {
+        padding: 8px;
+        width: 200px;
+    }
+
+    #sortButton {
+        padding: 8px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .stock-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .stock-table th, .stock-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .stock-table th {
+            background-color: #f2f2f2;
+            color: black;
+        }
+
+    .status {
+        font-weight: bold;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+        .status.in-stock {
+            background-color: #4CAF50;
+        }
+
+        .status.low-stock {
+            background-color: #ff5252;
+        }
+
+        .status.near-expiry {
+            background-color: #fdd835;
+        }
+
+    .new-order-button {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .new-order-button:hover {
+            background-color: #0056b3;
+        }
+</style>
+@section Scripts{
+    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
+}
+

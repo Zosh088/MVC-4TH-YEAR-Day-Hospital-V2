@@ -1,0 +1,143 @@
+﻿@using Surgeon__Day_Hospital_
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "Pharmacist_Layout";
+}
+
+<br />
+<br />
+
+<div class="patient-info">
+    <h2>Patient Information</h2>
+    <div class="info-row">
+        <div class="info-left">
+            <p><strong>First names:</strong> Athenkosi</p>
+            <p><strong>Last Name:</strong> Smith</p>
+            <p><strong>Contact number:</strong> 27 665 124 263</p>
+            <p><strong>Email Address:</strong> <a href="mailto:Athii@gmail.com">Athii@gmail.com</a></p>
+        </div>
+        <div class="info-right">
+            <p><strong>Nationality:</strong> South African</p>
+            <p><strong>Identity number:</strong> 96052755345</p>
+            <p><strong>Birth date:</strong> 27-May-96</p>
+            <p><strong>Gender:</strong> Male</p>
+        </div>
+    </div>
+    <div class="info-row">
+        <p><strong>Date:</strong> 07 June 2024</p>
+        <p><strong>Allergies:</strong> Muscles joint swelling</p>
+        <p><strong>Height:</strong> 163 cm</p>
+        <p><strong>Weight:</strong> 70 kgs</p>
+    </div>
+</div>
+
+<div class="prescription">
+    <h2>Prescription</h2>
+    <table>
+        <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Repeat(s)</th>
+        </tr>
+        <tr>
+            <td>1. MYPRODOL, CAP<br><small>Administer orally, 1 capsule once daily for 4 weeks</small></td>
+            <td>60, Capsules</td>
+            <td>None</td>
+        </tr>
+        <tr>
+            <td>2. NORFLEX 100MG, TAB<br><small>Administer orally, 1 tablet once daily for 4 weeks</small></td>
+            <td>30, Tablets</td>
+            <td>None</td>
+        </tr>
+        <tr>
+            <td>3. MUSCALT FORTE 100ML, Syrup<br><small>Administer orally, 5ml every morning for 5 days</small></td>
+            <td>100ml, Syrup</td>
+            <td>None</td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="actions">
+    <a href="#" class="btn btn-warning">Generate pdf</a>
+    <a href="#" class="btn btn-success">Confirm collection</a>
+    <a asp-action="DispensaryDashboard" class="btn btn-secondary">Back</a>
+</div>
+
+<style>
+
+    .patient-info, .prescription {
+        border: 2px solid Grey;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+        .patient-info h2, .prescription h2 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info-left, .info-right {
+        width: 48%;
+    }
+
+        .info-left p, .info-right p {
+            margin: 5px 0;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .actions {
+        text-align: center; /* Center-align the content inside the container */
+        margin-top: 20px;
+    }
+
+    .btn 
+    {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #fff;
+        margin: 5px;
+        display: inline-block;
+
+    }
+
+    .btn-success {
+        background-color: #28a745;
+    }
+
+    .btn-warning {
+        background-color: yellow;
+        color:  #000;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+
+
+   </style>

@@ -1,0 +1,91 @@
+﻿
+
+
+@{
+    ViewData["Title"] = "Manage Medication";
+    Layout = "NurseLayout";
+}
+
+<h2>Manage Medications</h2>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Table</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Table -->
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Prescribed Medication</th>
+                    <th>Quantity Prescribed</th>
+                    <th>Instructions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hydrocodone</td>
+                    <td>20</td>
+                    <td>Take one tablet twice a day</td>
+                </tr>
+                <tr>
+                    <td>Metformin</td>
+                    <td>30</td>
+                    <td>Take one tablet daily</td>
+                </tr>
+                <tr>
+                    <td>Losartan</td>
+                    <td>10</td>
+                    <td>Take one tablet in the morning</td>
+                </tr>
+                <tr>
+                    <td>Omeprazole</td>
+                    <td>15</td>
+                    <td>Take one tablet before meals</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Buttons, ComboBoxes, and DateTime Picker -->
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-success w-100 mb-2">Received</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-secondary w-100 mb-2">Back</button>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select mb-2" aria-label="Select Medication">
+                    <option selected>Select Medication</option>
+                    <option value="1">Hydrocodone</option>
+                    <option value="2">Metformin</option>
+                    <option value="3">Losartan</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-select mb-2" aria-label="Select Quantity">
+                    <option selected>Quantity</option>
+                    <option value="1">5</option>
+                    <option value="2">10</option>
+                    <option value="3">15</option>
+                    <option value="4">20</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="datetime-local" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+

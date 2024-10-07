@@ -1,0 +1,93 @@
+﻿
+
+
+@{
+    ViewData["Title"] = "Recapture Vitals";
+    Layout = "NurseLayout";
+}
+
+<h2>Recapture Vitals</h2>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+@model Surgeon__Day_Hospital_.DapperLibrary.ViewModels.AdmitPatVM
+<body>  
+    
+    <h4 class="text-center">Vitals</h4>
+    <br />
+    <table>
+        @if (Model.Vital_Types != null && Model.Vital_Types.Any())
+        {
+            foreach (var item in Model.Vital_Types)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><input type="number" id="v-@item.VitalTypeID" class="form-control" placeholder="@item.Name" /></td>
+                    @{
+                        if (item.Name2 != null)
+                        {
+                            string x = "hidden";
+                            <td><input type="number" id="vv-@item.VitalTypeID" value="0" class="form-control" placeholder="@item.Name2" @x /></td>
+
+                        }
+                    }
+                    <td><button class="btn btn-primary" type="button" onclick="AddVital(@item.VitalTypeID)">Submit</button></td>
+                </tr>
+
+            }
+        }
+    </table>
+    <br />
+    <div class="row">
+        
+        <div class="col-md-3">
+            <a class="btn btn-primary" href="@Url.Action("MyPatients")">Back</a>
+        </div>
+
+    </div>
+    @section Scripts{
+        <script>
+            function AddVital(id) {
+                data = { pat: '@Model.Patient_Records.Patient_ID_no', id: id, value: $('#v-' + id).val(), value2: $('#vv-' + id).val() }
+                $.ajax({
+                    type: "GET",
+                    data: data,
+                    url: "@Url.Action("AddVital")",
+                    dataType: "Json",
+                    contentType: "application/json",
+                    success: function (result) {
+
+                    }
+                });
+            }
+        </script>
+    }
+</body>
+
+</html>
+
+
+
+
